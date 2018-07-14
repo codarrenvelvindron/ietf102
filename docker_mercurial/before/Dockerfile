@@ -6,12 +6,15 @@ RUN apt-get update && apt-get -y install \
     build-essential \
     libtool \
     mercurial \
+    mercurial-common \
     gettext \
+    python \
     python-setuptools \ 
     python-pip \
     ca-certificates
 
-RUN cp -rp /etc/ssl/certs /usr/
+RUN cp -rp /etc/ssl/certs /usr/ \
+    && mkdir -p /usr/python13
 
 RUN wget https://www.openssl.org/source/openssl-1.1.1-pre8.tar.gz && \
     tar xvzf openssl-1.1.1-pre8.tar.gz && \
@@ -26,8 +29,8 @@ RUN apt remove -y bzip2 && \
 
 RUN wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz && \
     tar -xvJf Python-2.7.15.tar.xz && cd Python-2.7.15 && \
-    ./configure --prefix=/usr CFLAGS="-I/usr" LDFLAGS="-L/usr" && \
+    ./configure --prefix=/usr/python13 CFLAGS="-I/usr" LDFLAGS="-L/usr" && \
     make && make install
 
-RUN cd ../ && hg clone https://www.mercurial-scm.org/repo/hg-committed
+RUN hg clone https://www.mercurial-scm.org/repo/hg-committed
 
