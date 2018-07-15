@@ -12,6 +12,7 @@ RUN apt-get update && apt-get -y install \
     python \
     python-setuptools \ 
     python-pip \
+    zlib1g-dev \
     ca-certificates
 
 RUN cp -rp /etc/ssl/certs /usr/ \

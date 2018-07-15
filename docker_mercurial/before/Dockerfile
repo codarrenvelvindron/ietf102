@@ -2,6 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update && apt-get -y install \
     wget \
+    unzip \
     git \
     build-essential \
     libtool \
@@ -11,6 +12,7 @@ RUN apt-get update && apt-get -y install \
     python \
     python-setuptools \ 
     python-pip \
+    zlib1g-dev \
     ca-certificates
 
 RUN cp -rp /etc/ssl/certs /usr/ \
@@ -31,6 +33,4 @@ RUN wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz && \
     tar -xvJf Python-2.7.15.tar.xz && cd Python-2.7.15 && \
     ./configure --prefix=/usr/python13 CFLAGS="-I/usr" LDFLAGS="-L/usr" && \
     make && make install
-
-RUN hg clone https://www.mercurial-scm.org/repo/hg-committed
 
